@@ -1,6 +1,28 @@
 # McCusker General Engineering – WordPress Child Theme
 
+[![Live Preview](https://img.shields.io/badge/Live%20Preview-GitHub%20Pages-blue?logo=github)](https://mcfuzzysquirrel.github.io/Mcc-eng/)
+
 A professional WordPress child theme for **McCusker General Engineering**, built on the **Twenty Twenty-Four** parent theme. Designed for deployment at [www.mccuskerengineering.co.za](https://www.mccuskerengineering.co.za).
+
+## 🌐 Live Preview (from the repo)
+
+A static HTML preview of the theme is automatically published to **GitHub Pages** on every push to `main`.
+
+**[👉 View the preview here](https://mcfuzzysquirrel.github.io/Mcc-eng/)**
+
+| Page | URL |
+|---|---|
+| Home | https://mcfuzzysquirrel.github.io/Mcc-eng/ |
+| Services | https://mcfuzzysquirrel.github.io/Mcc-eng/services/ |
+| Contact | https://mcfuzzysquirrel.github.io/Mcc-eng/contact/ |
+
+> **Note:** The preview is a static representation of the theme design. Dynamic WordPress features (contact form, CMS content) require a live WordPress install — see [Local Preview (Docker)](#local-preview-docker) below.
+
+### Enable GitHub Pages (first time only)
+
+1. Go to **Settings → Pages** in this repository.
+2. Under **Source**, select **GitHub Actions**.
+3. The next push to `main` will deploy automatically.
 
 ## Project Overview
 
@@ -12,6 +34,22 @@ This repository contains a complete WordPress child theme reflecting McCusker Ge
 /
 ├── README.md
 ├── .gitignore
+├── .env.example
+├── docker-compose.yml
+├── .github/
+│   └── workflows/
+│       └── pages.yml          ← GitHub Pages auto-deploy
+├── docs/                      ← Static HTML preview (GitHub Pages)
+│   ├── index.html
+│   ├── services/
+│   │   └── index.html
+│   ├── contact/
+│   │   └── index.html
+│   └── assets/
+│       ├── css/
+│       │   └── custom.css
+│       └── js/
+│           └── main.js
 └── wp-content/
     └── themes/
         └── mccusker-engineering/
@@ -33,6 +71,57 @@ This repository contains a complete WordPress child theme reflecting McCusker Ge
                 ├── services.php
                 └── contact-cta.php
 ```
+
+## Local Preview (Docker)
+
+You can preview this site locally using Docker and Docker Compose — no hosting account needed.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (includes Docker Compose)
+
+### Steps
+
+1. **Clone the repository** (if you haven't already):
+   ```bash
+   git clone https://github.com/McFuzzySquirrel/Mcc-eng.git
+   cd Mcc-eng
+   ```
+
+2. **Set up your local environment file**:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` if you want to change the database credentials (optional for local use).
+
+3. **Start the local WordPress environment**:
+   ```bash
+   docker compose up -d
+   ```
+   This starts a MySQL database and a WordPress instance. The theme files in `wp-content/` are mounted directly into the container.
+
+4. **Open WordPress in your browser**:
+   Navigate to [http://localhost:8080](http://localhost:8080) and complete the WordPress setup wizard (choose any username/password — this is only for local use).
+
+5. **Install the Twenty Twenty-Four parent theme**:
+   In WordPress Admin → Appearance → Themes → Add New, search for **Twenty Twenty-Four** and install it (**do not activate it**).
+
+6. **Activate the McCusker Engineering theme**:
+   In WordPress Admin → Appearance → Themes, activate **McCusker Engineering**.
+
+7. **Create pages** with the following slugs:
+   - `/services` – use the "Services Page" template
+   - `/contact` – use the "Contact Page" template
+
+8. **Set the front page**: Settings → Reading → set "A static page" and choose your home page.
+
+9. **Stop the environment** when done:
+   ```bash
+   docker compose down
+   ```
+   Your WordPress database is preserved in a Docker volume. Use `docker compose down -v` to also remove the database.
+
+---
 
 ## Theme Installation
 
