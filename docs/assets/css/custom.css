@@ -1,0 +1,788 @@
+/* ==========================================================================
+   McCusker Engineering – Custom Stylesheet
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS Custom Properties (Brand Variables)
+   -------------------------------------------------------------------------- */
+:root {
+    --color-primary:   #1B3A6B;
+    --color-secondary: #D4D4D4;
+    --color-accent:    #E87722;
+    --color-white:     #FFFFFF;
+    --color-dark:      #1a1a1a;
+    --font-heading:    'Montserrat', sans-serif;
+    --font-body:       'Open Sans', sans-serif;
+    --container-width: 1200px;
+    --spacing-sm:      1rem;
+    --spacing-md:      2rem;
+    --spacing-lg:      4rem;
+    --border-radius:   4px;
+    --transition:      0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Global Reset / Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-dark);
+    background-color: var(--color-white);
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--color-accent);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Container
+   -------------------------------------------------------------------------- */
+.container {
+    width: 90%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Section Padding
+   -------------------------------------------------------------------------- */
+.section-padded {
+    padding: var(--spacing-lg) 0;
+}
+
+/* --------------------------------------------------------------------------
+   Site Header
+   -------------------------------------------------------------------------- */
+.site-header {
+    background-color: var(--color-primary);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: var(--spacing-md);
+}
+
+/* Site Branding */
+.site-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.site-logo img {
+    max-height: 70px;
+    width: auto;
+}
+
+.site-identity {
+    display: flex;
+    flex-direction: column;
+}
+
+.site-title-link {
+    text-decoration: none;
+}
+
+.site-title {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+}
+
+.site-tagline {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--color-secondary);
+    font-family: var(--font-body);
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+/* Navigation */
+.main-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.main-navigation ul li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.main-navigation ul li a:hover,
+.main-navigation ul li.current-menu-item > a {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+}
+
+/* Hamburger Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: 2px solid var(--color-white);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+}
+
+.hamburger-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger-icon span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--color-white);
+    border-radius: 2px;
+    transition: transform var(--transition), opacity var(--transition);
+}
+
+.menu-toggle[aria-expanded="true"] .hamburger-icon span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .hamburger-icon span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .hamburger-icon span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section
+   -------------------------------------------------------------------------- */
+.hero-section {
+    position: relative;
+    background-color: var(--color-primary);
+    background-image: linear-gradient(135deg, #0d2347 0%, #1B3A6B 50%, #2a5298 100%);
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+.hero-headline {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--color-white);
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.hero-subtext {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-secondary);
+    max-width: 700px;
+    margin: 0 auto var(--spacing-md);
+    font-family: var(--font-body);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition), color var(--transition), transform var(--transition);
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    border-color: var(--color-accent);
+}
+
+.btn-primary:hover {
+    background-color: #c9631a;
+    border-color: #c9631a;
+    color: var(--color-white);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Section Headings
+   -------------------------------------------------------------------------- */
+.section-heading {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-heading::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-accent);
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   About Section
+   -------------------------------------------------------------------------- */
+.about-section {
+    padding: var(--spacing-lg) 0;
+    background-color: var(--color-secondary);
+    text-align: center;
+}
+
+.about-section h2 {
+    color: var(--color-primary);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: var(--spacing-sm);
+}
+
+.about-section p {
+    max-width: 750px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 1.05rem;
+}
+
+/* --------------------------------------------------------------------------
+   Services Grid (Front Page)
+   -------------------------------------------------------------------------- */
+.services-section {
+    background-color: var(--color-white);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.service-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-secondary);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+}
+
+.service-card:hover {
+    box-shadow: 0 6px 24px rgba(27, 58, 107, 0.15);
+    transform: translateY(-4px);
+    border-color: var(--color-accent);
+}
+
+.service-card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.service-card h3 {
+    font-size: 1rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.service-card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+}
+
+.services-cta {
+    text-align: center;
+    margin-top: var(--spacing-md);
+}
+
+/* Scroll Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   CTA Banner
+   -------------------------------------------------------------------------- */
+.cta-banner {
+    background-color: var(--color-primary);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+}
+
+.cta-banner .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cta-main-text {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+}
+
+.cta-main-text a {
+    color: var(--color-accent);
+    transition: color var(--transition);
+}
+
+.cta-main-text a:hover {
+    color: #f09040;
+}
+
+.cta-sub-text {
+    font-size: 1rem;
+    color: var(--color-secondary);
+    margin: 0;
+}
+
+.cta-sub-text a {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+.cta-sub-text a:hover {
+    color: var(--color-white);
+}
+
+/* --------------------------------------------------------------------------
+   Page Hero (inner pages)
+   -------------------------------------------------------------------------- */
+.page-hero {
+    background-color: var(--color-primary);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+}
+
+.page-hero h1 {
+    color: var(--color-white);
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    margin-bottom: 0.5rem;
+}
+
+.page-hero p {
+    color: var(--color-secondary);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Services Detail Page
+   -------------------------------------------------------------------------- */
+.service-item {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+.service-item:last-child {
+    border-bottom: none;
+}
+
+.service-item-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.service-item-content h2 {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.service-item-content p {
+    margin: 0;
+    color: #555;
+}
+
+/* --------------------------------------------------------------------------
+   Contact Page
+   -------------------------------------------------------------------------- */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.contact-info h2,
+.contact-form-wrapper h2 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.contact-detail {
+    margin-bottom: var(--spacing-sm);
+}
+
+.contact-detail h3 {
+    font-size: 0.875rem;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+}
+
+.contact-phone {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.contact-phone:hover {
+    color: var(--color-accent);
+}
+
+.hours-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.hours-list li {
+    padding: 0.25rem 0;
+    color: #555;
+}
+
+.plugin-notice {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    color: #856404;
+}
+
+.map-placeholder h2 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.map-embed {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 2px solid var(--color-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Site Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--spacing-lg) 0 var(--spacing-md);
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    text-align: center;
+}
+
+.footer-widgets {
+    width: 100%;
+}
+
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.footer-cta {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.footer-cta a {
+    color: var(--color-accent);
+}
+
+.footer-cta a:hover {
+    color: #f09040;
+}
+
+.footer-website {
+    margin: 0;
+}
+
+.footer-website a {
+    color: var(--color-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-website a:hover {
+    color: var(--color-white);
+}
+
+.footer-navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.footer-navigation ul li a {
+    color: var(--color-secondary);
+    font-size: 0.875rem;
+    transition: color var(--transition);
+}
+
+.footer-navigation ul li a:hover {
+    color: var(--color-accent);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: var(--spacing-sm);
+    width: 100%;
+    text-align: center;
+}
+
+.copyright {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--color-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive – Tablet (768px+)
+   -------------------------------------------------------------------------- */
+@media (min-width: 768px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .service-item {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive – Desktop (1024px+)
+   -------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .header-inner {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    .site-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Navigation (max 767px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .main-navigation #primary-menu {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--color-primary);
+        border-top: 2px solid var(--color-accent);
+        padding: 0.5rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-navigation #primary-menu.is-open {
+        display: flex;
+    }
+
+    .main-navigation #primary-menu li a {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .site-header {
+        position: relative;
+    }
+
+    .main-navigation {
+        position: static;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .service-item {
+        flex-direction: column;
+    }
+
+    .footer-navigation ul {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility – Skip Link
+   -------------------------------------------------------------------------- */
+.skip-link.screen-reader-text {
+    position: absolute;
+    left: -9999px;
+}
+
+.skip-link.screen-reader-text:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    background-color: var(--color-accent);
+    color: var(--color-white);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+}

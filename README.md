@@ -1,6 +1,28 @@
 # McCusker General Engineering – WordPress Child Theme
 
+[![Live Preview](https://img.shields.io/badge/Live%20Preview-GitHub%20Pages-blue?logo=github)](https://mcfuzzysquirrel.github.io/Mcc-eng/)
+
 A professional WordPress child theme for **McCusker General Engineering**, built on the **Twenty Twenty-Four** parent theme. Designed for deployment at [www.mccuskerengineering.co.za](https://www.mccuskerengineering.co.za).
+
+## 🌐 Live Preview (from the repo)
+
+A static HTML preview of the theme is automatically published to **GitHub Pages** on every push to `main`.
+
+**[👉 View the preview here](https://mcfuzzysquirrel.github.io/Mcc-eng/)**
+
+| Page | URL |
+|---|---|
+| Home | https://mcfuzzysquirrel.github.io/Mcc-eng/ |
+| Services | https://mcfuzzysquirrel.github.io/Mcc-eng/services/ |
+| Contact | https://mcfuzzysquirrel.github.io/Mcc-eng/contact/ |
+
+> **Note:** The preview is a static representation of the theme design. Dynamic WordPress features (contact form, CMS content) require a live WordPress install — see [Local Preview (Docker)](#local-preview-docker) below.
+
+### Enable GitHub Pages (first time only)
+
+1. Go to **Settings → Pages** in this repository.
+2. Under **Source**, select **GitHub Actions**.
+3. The next push to `main` will deploy automatically.
 
 ## Project Overview
 
@@ -14,6 +36,20 @@ This repository contains a complete WordPress child theme reflecting McCusker Ge
 ├── .gitignore
 ├── .env.example
 ├── docker-compose.yml
+├── .github/
+│   └── workflows/
+│       └── pages.yml          ← GitHub Pages auto-deploy
+├── docs/                      ← Static HTML preview (GitHub Pages)
+│   ├── index.html
+│   ├── services/
+│   │   └── index.html
+│   ├── contact/
+│   │   └── index.html
+│   └── assets/
+│       ├── css/
+│       │   └── custom.css
+│       └── js/
+│           └── main.js
 └── wp-content/
     └── themes/
         └── mccusker-engineering/
