@@ -12,6 +12,8 @@ This repository contains a complete WordPress child theme reflecting McCusker Ge
 /
 ├── README.md
 ├── .gitignore
+├── .env.example
+├── docker-compose.yml
 └── wp-content/
     └── themes/
         └── mccusker-engineering/
@@ -33,6 +35,57 @@ This repository contains a complete WordPress child theme reflecting McCusker Ge
                 ├── services.php
                 └── contact-cta.php
 ```
+
+## Local Preview (Docker)
+
+You can preview this site locally using Docker and Docker Compose — no hosting account needed.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (includes Docker Compose)
+
+### Steps
+
+1. **Clone the repository** (if you haven't already):
+   ```bash
+   git clone https://github.com/McFuzzySquirrel/Mcc-eng.git
+   cd Mcc-eng
+   ```
+
+2. **Set up your local environment file**:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` if you want to change the database credentials (optional for local use).
+
+3. **Start the local WordPress environment**:
+   ```bash
+   docker compose up -d
+   ```
+   This starts a MySQL database and a WordPress instance. The theme files in `wp-content/` are mounted directly into the container.
+
+4. **Open WordPress in your browser**:
+   Navigate to [http://localhost:8080](http://localhost:8080) and complete the WordPress setup wizard (choose any username/password — this is only for local use).
+
+5. **Install the Twenty Twenty-Four parent theme**:
+   In WordPress Admin → Appearance → Themes → Add New, search for **Twenty Twenty-Four** and install it (**do not activate it**).
+
+6. **Activate the McCusker Engineering theme**:
+   In WordPress Admin → Appearance → Themes, activate **McCusker Engineering**.
+
+7. **Create pages** with the following slugs:
+   - `/services` – use the "Services Page" template
+   - `/contact` – use the "Contact Page" template
+
+8. **Set the front page**: Settings → Reading → set "A static page" and choose your home page.
+
+9. **Stop the environment** when done:
+   ```bash
+   docker compose down
+   ```
+   Your WordPress database is preserved in a Docker volume. Use `docker compose down -v` to also remove the database.
+
+---
 
 ## Theme Installation
 
