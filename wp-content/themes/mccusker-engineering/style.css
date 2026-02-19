@@ -1,0 +1,23 @@
+/*
+Theme Name: McCusker Engineering
+Theme URI: https://www.mccuskerengineering.co.za
+Description: A professional WordPress child theme for McCusker General Engineering. Bold, industrial design with navy blue branding.
+Author: McCusker General Engineering
+Author URI: https://www.mccuskerengineering.co.za
+Template: twentytwentyfour
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: mccusker-engineering
+Tags: engineering, industrial, professional, child-theme
+*/
+
+:root {
+    --color-primary: #1B3A6B;
+    --color-secondary: #D4D4D4;
+    --color-accent: #E87722;
+    --color-white: #FFFFFF;
+    --color-dark: #1a1a1a;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
