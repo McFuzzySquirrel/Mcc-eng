@@ -123,12 +123,127 @@ function mccusker_theme_setup() {
 add_action( 'after_setup_theme', 'mccusker_theme_setup' );
 
 /**
+ * Register "Project" custom post type for the gallery.
+ */
+function mccusker_register_project_post_type() {
+    $labels = array(
+        'name'               => esc_html_x( 'Projects', 'post type general name', 'mccusker-engineering' ),
+        'singular_name'      => esc_html_x( 'Project', 'post type singular name', 'mccusker-engineering' ),
+        'menu_name'          => esc_html__( 'Projects', 'mccusker-engineering' ),
+        'add_new'            => esc_html__( 'Add New', 'mccusker-engineering' ),
+        'add_new_item'       => esc_html__( 'Add New Project', 'mccusker-engineering' ),
+        'edit_item'          => esc_html__( 'Edit Project', 'mccusker-engineering' ),
+        'new_item'           => esc_html__( 'New Project', 'mccusker-engineering' ),
+        'view_item'          => esc_html__( 'View Project', 'mccusker-engineering' ),
+        'search_items'       => esc_html__( 'Search Projects', 'mccusker-engineering' ),
+        'not_found'          => esc_html__( 'No projects found.', 'mccusker-engineering' ),
+        'not_found_in_trash' => esc_html__( 'No projects found in Trash.', 'mccusker-engineering' ),
+        'all_items'          => esc_html__( 'All Projects', 'mccusker-engineering' ),
+    );
+
+    $args = array(
+        'labels'        => $labels,
+        'public'        => true,
+        'has_archive'   => false,
+        'menu_icon'     => 'dashicons-format-gallery',
+        'supports'      => array( 'title', 'editor', 'thumbnail' ),
+        'show_in_rest'  => true,
+        'rewrite'       => array( 'slug' => 'project' ),
+    );
+
+    register_post_type( 'mccusker_project', $args );
+}
+add_action( 'init', 'mccusker_register_project_post_type' );
+
+/**
+ * Register "Project Category" taxonomy for the gallery.
+ */
+function mccusker_register_project_taxonomy() {
+    $labels = array(
+        'name'              => esc_html_x( 'Project Categories', 'taxonomy general name', 'mccusker-engineering' ),
+        'singular_name'     => esc_html_x( 'Project Category', 'taxonomy singular name', 'mccusker-engineering' ),
+        'search_items'      => esc_html__( 'Search Categories', 'mccusker-engineering' ),
+        'all_items'         => esc_html__( 'All Categories', 'mccusker-engineering' ),
+        'parent_item'       => esc_html__( 'Parent Category', 'mccusker-engineering' ),
+        'parent_item_colon' => esc_html__( 'Parent Category:', 'mccusker-engineering' ),
+        'edit_item'         => esc_html__( 'Edit Category', 'mccusker-engineering' ),
+        'update_item'       => esc_html__( 'Update Category', 'mccusker-engineering' ),
+        'add_new_item'      => esc_html__( 'Add New Category', 'mccusker-engineering' ),
+        'new_item_name'     => esc_html__( 'New Category Name', 'mccusker-engineering' ),
+        'menu_name'         => esc_html__( 'Categories', 'mccusker-engineering' ),
+    );
+
+    register_taxonomy(
+        'project_category',
+        'mccusker_project',
+        array(
+            'labels'            => $labels,
+            'hierarchical'      => true,
+            'public'            => true,
+            'show_admin_column' => true,
+            'show_in_rest'      => true,
+            'rewrite'           => array( 'slug' => 'project-category' ),
+        )
+    );
+}
+add_action( 'init', 'mccusker_register_project_taxonomy' );
+
+/**
+ * Add a meta box for a project video URL on the Project edit screen.
+ */
+function mccusker_add_project_meta_boxes() {
+    add_meta_box(
+        'mccusker_project_video',
+        esc_html__( 'Project Video URL', 'mccusker-engineering' ),
+        'mccusker_project_video_callback',
+        'mccusker_project',
+        'side',
+        'default'
+    );
+}
+add_action( 'add_meta_boxes', 'mccusker_add_project_meta_boxes' );
+
+/**
+ * Render the project video URL meta box.
+ *
+ * @param WP_Post $post Current post object.
+ */
+function mccusker_project_video_callback( $post ) {
+    wp_nonce_field( 'mccusker_save_video', 'mccusker_video_nonce' );
+    $value = get_post_meta( $post->ID, '_mccusker_video_url', true );
+    echo '<label for="mccusker_video_url">' . esc_html__( 'YouTube or video embed URL:', 'mccusker-engineering' ) . '</label><br>';
+    echo '<input type="url" id="mccusker_video_url" name="mccusker_video_url" value="' . esc_attr( $value ) . '" style="width:100%;" placeholder="https://www.youtube.com/embed/...">';
+}
+
+/**
+ * Save the project video URL meta value.
+ *
+ * @param int $post_id The post ID being saved.
+ */
+function mccusker_save_project_video( $post_id ) {
+    if ( ! isset( $_POST['mccusker_video_nonce'] ) || ! wp_verify_nonce( $_POST['mccusker_video_nonce'], 'mccusker_save_video' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+    if ( isset( $_POST['mccusker_video_url'] ) ) {
+        update_post_meta( $post_id, '_mccusker_video_url', esc_url_raw( wp_unslash( $_POST['mccusker_video_url'] ) ) );
+    }
+}
+add_action( 'save_post_mccusker_project', 'mccusker_save_project_video' );
+
+/**
  * Fallback menu when no menu is assigned to the primary location.
  */
 function mccusker_fallback_menu() {
     echo '<ul id="primary-menu">';
     echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'mccusker-engineering' ) . '</a></li>';
     echo '<li><a href="' . esc_url( home_url( '/services' ) ) . '">' . esc_html__( 'Services', 'mccusker-engineering' ) . '</a></li>';
+    echo '<li><a href="' . esc_url( home_url( '/gallery' ) ) . '">' . esc_html__( 'Gallery', 'mccusker-engineering' ) . '</a></li>';
     echo '<li><a href="' . esc_url( home_url( '/contact' ) ) . '">' . esc_html__( 'Contact', 'mccusker-engineering' ) . '</a></li>';
     echo '</ul>';
 }
