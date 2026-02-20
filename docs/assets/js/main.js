@@ -95,6 +95,97 @@
     }
 
     /* -----------------------------------------------------------------------
+       Gallery Category Filter
+       ----------------------------------------------------------------------- */
+    function initGalleryFilter() {
+        var filterBtns = document.querySelectorAll('.gallery-filter-btn');
+        var items      = document.querySelectorAll('.gallery-item');
+
+        if (!filterBtns.length || !items.length) {
+            return;
+        }
+
+        filterBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var filter = this.getAttribute('data-filter');
+
+                filterBtns.forEach(function (b) { b.classList.remove('active'); });
+                this.classList.add('active');
+
+                items.forEach(function (item) {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    }
+
+    /* -----------------------------------------------------------------------
+       Gallery Lightbox (images & videos)
+       ----------------------------------------------------------------------- */
+    function initGalleryLightbox() {
+        var lightbox = document.getElementById('galleryLightbox');
+        if (!lightbox) {
+            return;
+        }
+
+        var content  = lightbox.querySelector('.lightbox-content');
+        var closeBtn = lightbox.querySelector('.lightbox-close');
+        var items    = document.querySelectorAll('.gallery-item[data-full], .gallery-item[data-video]');
+
+        items.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var videoUrl = this.getAttribute('data-video');
+                var imgUrl   = this.getAttribute('data-full');
+
+                content.innerHTML = '';
+
+                if (videoUrl) {
+                    var iframe = document.createElement('iframe');
+                    iframe.src = videoUrl;
+                    iframe.setAttribute('allowfullscreen', '');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    iframe.title = this.querySelector('h3') ? this.querySelector('h3').textContent : 'Video';
+                    content.appendChild(iframe);
+                } else if (imgUrl) {
+                    var img = document.createElement('img');
+                    img.src = imgUrl;
+                    img.alt = this.querySelector('h3') ? this.querySelector('h3').textContent : 'Project image';
+                    content.appendChild(img);
+                }
+
+                lightbox.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeLightbox);
+        }
+
+        lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('is-open')) {
+                closeLightbox();
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('is-open');
+            content.innerHTML = '';
+            document.body.style.overflow = '';
+        }
+    }
+
+    /* -----------------------------------------------------------------------
        Init on DOM Ready
        ----------------------------------------------------------------------- */
     if (document.readyState === 'loading') {
@@ -102,10 +193,14 @@
             initMobileMenu();
             initSmoothScroll();
             initScrollReveal();
+            initGalleryFilter();
+            initGalleryLightbox();
         });
     } else {
         initMobileMenu();
         initSmoothScroll();
         initScrollReveal();
+        initGalleryFilter();
+        initGalleryLightbox();
     }
 }());

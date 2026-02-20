@@ -14,6 +14,7 @@ A static HTML preview of the theme is automatically published to **GitHub Pages*
 |---|---|
 | Home | https://mcfuzzysquirrel.github.io/Mcc-eng/ |
 | Services | https://mcfuzzysquirrel.github.io/Mcc-eng/services/ |
+| Gallery | https://mcfuzzysquirrel.github.io/Mcc-eng/gallery/ |
 | Contact | https://mcfuzzysquirrel.github.io/Mcc-eng/contact/ |
 
 > **Note:** The preview is a static representation of the theme design. Dynamic WordPress features (contact form, CMS content) require a live WordPress install — see [Local Preview (Docker)](#local-preview-docker) below.
@@ -43,6 +44,8 @@ This repository contains a complete WordPress child theme reflecting McCusker Ge
 │   ├── index.html
 │   ├── services/
 │   │   └── index.html
+│   ├── gallery/
+│   │   └── index.html
 │   ├── contact/
 │   │   └── index.html
 │   └── assets/
@@ -60,6 +63,7 @@ This repository contains a complete WordPress child theme reflecting McCusker Ge
             ├── footer.php
             ├── front-page.php
             ├── page-services.php
+            ├── page-gallery.php
             ├── page-contact.php
             ├── assets/
             │   ├── css/
@@ -111,6 +115,7 @@ You can preview this site locally using Docker and Docker Compose — no hosting
 
 7. **Create pages** with the following slugs:
    - `/services` – use the "Services Page" template
+   - `/gallery` – use the "Gallery Page" template
    - `/contact` – use the "Contact Page" template
 
 8. **Set the front page**: Settings → Reading → set "A static page" and choose your home page.
@@ -131,8 +136,10 @@ You can preview this site locally using Docker and Docker Compose — no hosting
 4. **Activate** the McCusker Engineering child theme.
 5. **Create pages** in WordPress with the following slugs:
    - `/services` – use the "Services Page" template
+   - `/gallery` – use the "Gallery Page" template
    - `/contact` – use the "Contact Page" template
 6. **Set the front page**: Settings → Reading → set "A static page" and choose your home page.
+7. **Update your navigation menu**: Appearance → Menus → add Home, Services, Gallery, and Contact; assign to "Primary Navigation".
 
 ## Required Plugins
 
@@ -172,8 +179,94 @@ Both fonts are loaded via `functions.php`.
 2. Point your domain `www.mccuskerengineering.co.za` to your server.
 3. Install WordPress, then follow the **Theme Installation** steps above.
 4. Install and configure **Contact Form 7**.
-5. Set up your navigation menu: Appearance → Menus → create a menu with Home, Services, and Contact items; assign to "Primary Navigation".
+5. Set up your navigation menu: Appearance → Menus → create a menu with Home, Services, Gallery, and Contact items; assign to "Primary Navigation".
 6. Optionally configure a custom logo via Appearance → Customize → Site Identity.
+
+## Gallery (Project Showcase)
+
+The theme includes a built-in **Gallery** page for showcasing completed jobs with images and videos. Projects are managed via a custom post type in the WordPress admin.
+
+### How Admins Upload Gallery Content
+
+1. In the WordPress dashboard, go to **Projects → Add New**.
+2. Enter a **title** for the project (e.g., "Stainless Steel Handrail").
+3. Set a **Featured Image** (this is the photo displayed in the gallery grid).
+4. Optionally add a description in the editor area.
+5. In the right sidebar, assign one or more **Project Categories** (e.g., Welding, Machining, Manufacturing). Create new categories as needed.
+6. To include a **video**, paste a YouTube embed URL in the **Project Video URL** field in the sidebar (e.g., `https://www.youtube.com/embed/VIDEO_ID`).
+7. Click **Publish**.
+
+The gallery page automatically displays all published projects in a filterable grid. Visitors can filter by category and click to view images or videos in a lightbox overlay.
+
+### Managing Categories
+
+- Go to **Projects → Categories** to create, edit, or delete project categories.
+- Categories appear as filter buttons on the gallery page.
+- Only categories with at least one published project are shown.
+
+## Uploading the Theme to Your WordPress Site
+
+Follow these steps to take the project files from this repository and deploy them to a live WordPress site.
+
+### Step 1 – Download the Theme Files
+
+1. Clone or download this repository:
+   ```bash
+   git clone https://github.com/McFuzzySquirrel/Mcc-eng.git
+   ```
+   Or click **Code → Download ZIP** on the GitHub repository page.
+
+2. Locate the theme folder at:
+   ```
+   wp-content/themes/mccusker-engineering/
+   ```
+
+### Step 2 – Create a ZIP of the Theme
+
+Compress **only** the `mccusker-engineering` folder into a `.zip` file:
+```bash
+cd wp-content/themes
+zip -r mccusker-engineering.zip mccusker-engineering/
+```
+On Windows/Mac you can right-click the folder and choose "Compress" or "Send to → Compressed folder".
+
+### Step 3 – Upload to WordPress
+
+1. Log in to your WordPress admin dashboard (e.g., `https://www.mccuskerengineering.co.za/wp-admin`).
+2. Go to **Appearance → Themes → Add New → Upload Theme**.
+3. Choose the `mccusker-engineering.zip` file and click **Install Now**.
+4. After installation, click **Activate**.
+
+### Step 4 – Install the Parent Theme
+
+If not already installed:
+1. Go to **Appearance → Themes → Add New**.
+2. Search for **Twenty Twenty-Four** and click **Install** (do **not** activate it).
+
+### Step 5 – Create Required Pages
+
+1. Go to **Pages → Add New** and create the following pages:
+
+   | Page Title | Slug | Template |
+   |---|---|---|
+   | Home | `home` | Default |
+   | Services | `services` | Services Page |
+   | Gallery | `gallery` | Gallery Page |
+   | Contact | `contact` | Contact Page |
+
+2. For each page, set the **Page Template** in the right sidebar under "Page Attributes" → "Template".
+
+### Step 6 – Configure WordPress Settings
+
+1. **Set the front page**: Go to **Settings → Reading**, select "A static page", and choose "Home" as the front page.
+2. **Set up navigation**: Go to **Appearance → Menus**, create a new menu with Home, Services, Gallery, and Contact, and assign it to "Primary Navigation".
+3. **Install Contact Form 7** (optional): Go to **Plugins → Add New**, search for "Contact Form 7", install and activate it.
+
+### Step 7 – Start Adding Gallery Content
+
+1. Go to **Projects → Categories** and create your categories (e.g., Welding, Brazing, Machining, Manufacturing, Plate Rolling).
+2. Go to **Projects → Add New** to add your first project with a photo and optional video.
+3. Visit the Gallery page on your site to see your projects displayed.
 
 ## Services
 
