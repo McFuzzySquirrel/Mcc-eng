@@ -221,7 +221,7 @@ function mccusker_project_video_callback( $post ) {
  * @param int $post_id The post ID being saved.
  */
 function mccusker_save_project_video( $post_id ) {
-    if ( ! isset( $_POST['mccusker_video_nonce'] ) || ! wp_verify_nonce( $_POST['mccusker_video_nonce'], 'mccusker_save_video' ) ) {
+    if ( ! isset( $_POST['mccusker_video_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mccusker_video_nonce'] ) ), 'mccusker_save_video' ) ) {
         return;
     }
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
